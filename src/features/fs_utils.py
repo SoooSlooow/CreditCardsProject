@@ -81,7 +81,7 @@ def create_column_transformers(X):
     column_transformers = {'simple_transformer': ct_simple_transformer,
                            'with_poly_features': ct_with_poly_features,
                            'with_ratio_features': ct_with_ratio_features,
-                           'with_ratio_and_poly_features': ct_with_ratio_and_poly_features,
+#                           'with_ratio_and_poly_features': ct_with_ratio_and_poly_features,
                            'without_occupation_type': ct_without_occupation_type
                            }
 

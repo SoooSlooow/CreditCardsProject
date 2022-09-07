@@ -40,4 +40,3 @@ if __name__ == '__main__':
     clean_dataset()
 
 # python -m src.data.clean_dataset data/interim/initial_dataset.csv data/interim/cleaned_dataset.csv
-
