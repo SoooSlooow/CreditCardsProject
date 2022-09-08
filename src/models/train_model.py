@@ -24,12 +24,12 @@ def train_model(input_data_path, output_model_path):
     pipeline = create_pipeline(column_transformer, model)
     pipeline.fit(X, y)
 
-    joblib.dump(model, output_model_path)
+    joblib.dump(pipeline, output_model_path)
 
 
 if __name__ == '__main__':
     train_model()
 
 '''
-python -m src.models.train_model data/interim/cleaned_dataset.csv models/final_model.pkl
+python -m src.models.train_model data/processed/train_dataset.csv models/final_model.pkl
 '''
