@@ -1,0 +1,57 @@
+stages:
+
+  make_dataset:
+    cmd: python -m src.data.make_dataset
+      data/raw/application_record.csv data/raw/credit_record.csv data/interim/initial_dataset.csv
+    deps:
+      - src/data/make_dataset.py
+      - data/raw/application_record.csv
+      - data/raw/credit_record.csv
+    outs:
+      - data/interim/initial_dataset.csv
+
+  clean_dataset:
+    cmd: python -m src.data.clean_dataset data/interim/initial_dataset.csv data/interim/cleaned_dataset.csv
+    deps:
+      - src/data/clean_dataset.py
+      - data/interim/initial_dataset.csv
+    outs:
+      - data/interim/cleaned_dataset.csv
+
+  get_train_test:
+    cmd: python -m src.data.get_train_test
+      data/interim/cleaned_dataset.csv data/processed/train_dataset.csv data/processed/test_dataset.csv
+    deps:
+      - src/data/get_train_test.py
+      - data/interim/cleaned_dataset.csv
+    outs:
+      - data/processed/train_dataset.csv
+      - data/processed/test_dataset.csv
+
+  train_model:
+    cmd: python -m src.models.train_model data/processed/train_dataset.csv models/final_model.pkl
+    deps:
+      - src/models/train_model.py
+      - data/processed/train_dataset.csv
+    outs:
+      - models/final_model.pkl
+
+  make_predictions:
+    cmd: python -m src.models.make_predictions
+      data/processed/test_dataset.csv models/final_model.pkl reports/predictions.csv
+    deps:
+      - src/models/make_predictions.py
+      - data/processed/test_dataset.csv
+      - models/final_model.pkl
+    outs:
+      - reports/predictions.csv
+
+  evaluate_predictions:
+    cmd: python -m src.models.evaluate_predictions
+      data/processed/test_dataset.csv reports/predictions.csv reports/metrics.csv
+    deps:
+      - src/models/evaluate_predictions.py
+      - data/processed/test_dataset.csv
+      - reports/predictions.csv
+    outs:
+      - reports/metrics.csv

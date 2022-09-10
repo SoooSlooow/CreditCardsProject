@@ -1,0 +1,96 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python -m src.data.make_dataset data/raw/application_record.csv data/raw/credit_record.csv
+      data/interim/initial_dataset.csv
+    deps:
+    - path: data/raw/application_record.csv
+      md5: 3bce864566b4183f028f3c5788c96f82
+      size: 54781392
+    - path: data/raw/credit_record.csv
+      md5: 6ac9996c3fc235d6837c1bc5b8e4ed2f
+      size: 15367102
+    - path: src/data/make_dataset.py
+      md5: fe13981d6e961a82705a3b50051e1cc2
+      size: 2817
+    outs:
+    - path: data/interim/initial_dataset.csv
+      md5: 174ea00a2179662567a2c87132e1406c
+      size: 1207422
+  clean_dataset:
+    cmd: python -m src.data.clean_dataset data/interim/initial_dataset.csv data/interim/cleaned_dataset.csv
+    deps:
+    - path: data/interim/initial_dataset.csv
+      md5: 174ea00a2179662567a2c87132e1406c
+      size: 1207422
+    - path: src/data/clean_dataset.py
+      md5: eea0249011ddf92abeb0fb7934e3655d
+      size: 1661
+    outs:
+    - path: data/interim/cleaned_dataset.csv
+      md5: 4f36b5040c51ab0a34ede2abd7172cc7
+      size: 1397943
+  get_train_test:
+    cmd: python -m src.data.get_train_test data/interim/cleaned_dataset.csv data/processed/train_dataset.csv
+      data/processed/test_dataset.csv
+    deps:
+    - path: data/interim/cleaned_dataset.csv
+      md5: 4f36b5040c51ab0a34ede2abd7172cc7
+      size: 1397943
+    - path: src/data/get_train_test.py
+      md5: d98f2e0ce2009e7a3ae2e46a6aba07e0
+      size: 920
+    outs:
+    - path: data/processed/test_dataset.csv
+      md5: 854f4c331ab2d27f6961d499d31ffe50
+      size: 278822
+    - path: data/processed/train_dataset.csv
+      md5: 85bdbff33b14d64682d6444314e74a72
+      size: 1113733
+  train_model:
+    cmd: python -m src.models.train_model data/processed/train_dataset.csv models/final_model.pkl
+    deps:
+    - path: data/processed/train_dataset.csv
+      md5: 85bdbff33b14d64682d6444314e74a72
+      size: 1113733
+    - path: src/models/train_model.py
+      md5: 1b1f4529bc24a2a4c20e5a7c9f64e89b
+      size: 1115
+    outs:
+    - path: models/final_model.pkl
+      md5: 72dfb9bace750c2737c918b053304f6f
+      size: 1137378
+  make_predictions:
+    cmd: python -m src.models.make_predictions data/processed/test_dataset.csv models/final_model.pkl
+      reports/predictions.csv
+    deps:
+    - path: data/processed/test_dataset.csv
+      md5: 854f4c331ab2d27f6961d499d31ffe50
+      size: 278822
+    - path: models/final_model.pkl
+      md5: 72dfb9bace750c2737c918b053304f6f
+      size: 1137378
+    - path: src/models/make_predictions.py
+      md5: d02c9d6151737a6a790191837341af06
+      size: 795
+    outs:
+    - path: reports/predictions.csv
+      md5: cf957f6eca4785d9871f5b3fae52199b
+      size: 99246
+  evaluate_predictions:
+    cmd: python -m src.models.evaluate_predictions data/processed/test_dataset.csv
+      reports/predictions.csv reports/metrics.csv
+    deps:
+    - path: data/processed/test_dataset.csv
+      md5: 854f4c331ab2d27f6961d499d31ffe50
+      size: 278822
+    - path: reports/predictions.csv
+      md5: cf957f6eca4785d9871f5b3fae52199b
+      size: 99246
+    - path: src/models/evaluate_predictions.py
+      md5: 637ba73daa6bbe9bf6c94b70ae37ae15
+      size: 852
+    outs:
+    - path: reports/metrics.csv
+      md5: 1a25cb43249352f2d6f3f85f007d3e22
+      size: 32
