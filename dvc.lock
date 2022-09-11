@@ -94,3 +94,17 @@ stages:
     - path: reports/metrics.csv
       md5: 8a9f431e5f6d8e27177b4eae27b0c09a
       size: 32
+  get_unique_column_values:
+    cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
+      reports/unique_column_values.pkl
+    deps:
+    - path: data/interim/cleaned_dataset.csv
+      md5: 307b04cbbf3bf16158d2806636ccf17c
+      size: 1452345
+    - path: src/data/get_unique_column_values.py
+      md5: 7530ba67c6d920e6594bf0c07114a645
+      size: 648
+    outs:
+    - path: reports/unique_column_values.pkl
+      md5: f70ee0b62931b9e172c520688ea0f0a5
+      size: 978

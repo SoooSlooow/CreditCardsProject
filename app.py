@@ -1,6 +1,7 @@
 import gradio as gr
 import pandas as pd
 import numpy as np
+import joblib
 import os
 import random
 
@@ -13,10 +14,10 @@ def predict(*args):
     return predictions[0]
 
 
-DATA_PATH = 'data/interim/cleaned_dataset.csv'
 OUTPUT_DATA_PATH = 'data/processed/app_dataset.csv'
 PREDICTIONS_PATH = 'reports/app_predictions.csv'
-df = pd.read_csv(DATA_PATH)
+UNIQUE_VALUES_PATH = 'reports/unique_column_values.pkl'
+
 COLUMNS = (
     'YEARS_BIRTH', 'CODE_GENDER', 'AMT_INCOME_TOTAL', 'NAME_INCOME_TYPE',
     'YEARS_EMPLOYED', 'OCCUPATION_TYPE', 'NAME_EDUCATION_TYPE',
@@ -24,16 +25,7 @@ COLUMNS = (
     'FLAG_OWN_REALTY', 'NAME_HOUSING_TYPE', 'FLAG_PHONE', 'FLAG_WORK_PHONE',
     'FLAG_EMAIL'
 )
-CAT_COLUMNS = (
-    'CODE_GENDER', 'NAME_INCOME_TYPE', 'OCCUPATION_TYPE',
-    'NAME_EDUCATION_TYPE', 'NAME_FAMILY_STATUS', 'FLAG_OWN_CAR',
-    'FLAG_OWN_REALTY', 'NAME_HOUSING_TYPE', 'FLAG_PHONE',
-    'FLAG_WORK_PHONE', 'FLAG_EMAIL'
-)
-cat_cols = [col for col in df.columns if df[col].dtype == 'object']
-unique_values = {col: sorted(df[col].unique()) for col in cat_cols}
-# print(unique_values['CODE_GENDER'])
-# '''
+unique_values = joblib.load('reports/unique_column_values.pkl')
 
 # starting the block
 

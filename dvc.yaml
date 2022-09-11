@@ -18,6 +18,15 @@ stages:
     outs:
       - data/interim/cleaned_dataset.csv
 
+  get_unique_column_values:
+    cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
+      reports/unique_column_values.pkl
+    deps:
+      - src/data/get_unique_column_values.py
+      - data/interim/cleaned_dataset.csv
+    outs:
+      - reports/unique_column_values.pkl
+
   get_train_test:
     cmd: python -m src.data.get_train_test
       data/interim/cleaned_dataset.csv data/processed/train_dataset.csv data/processed/test_dataset.csv
