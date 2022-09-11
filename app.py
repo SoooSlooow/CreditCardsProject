@@ -2,6 +2,10 @@ import gradio as gr
 import pandas as pd
 import random
 
+def predict(*args):
+    return 1
+
+
 DATA_PATH = 'data/interim/cleaned_dataset.csv'
 df = pd.read_csv(DATA_PATH)
 cat_cols = [col for col in df.columns if df[col].dtype == 'object']
@@ -104,7 +108,7 @@ with gr.Blocks() as demo:
                 choices=unique_values['FLAG_EMAIL'],
                 value=lambda: random.choice(unique_values['FLAG_EMAIL'])
             )
-'''
+
         with gr.Column():
             # defining the outputs
             label = gr.Label()
@@ -115,41 +119,12 @@ with gr.Blocks() as demo:
             predict_btn.click(
                 predict,
                 inputs=[
-                    age,
-                    work_class,
-                    education,
-                    years,
-                    marital_status,
-                    occupation,
-                    relationship,
-                    sex,
-                    capital_gain,
-                    capital_loss,
-                    hours_per_week,
-                    country,
+                    age
                 ],
                 outputs=[label],
             )
-            # defining the fn that will run when interpret is clicked, what it will get as inputs, and which output it will update
-            interpret_btn.click(
-                interpret,
-                inputs=[
-                    age,
-                    work_class,
-                    education,
-                    years,
-                    marital_status,
-                    occupation,
-                    relationship,
-                    sex,
-                    capital_gain,
-                    capital_loss,
-                    hours_per_week,
-                    country,
-                ],
-                outputs=[plot],
-            )
-'''
+
+
 
 # launch
 demo.launch()
