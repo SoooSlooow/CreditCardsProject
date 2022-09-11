@@ -79,7 +79,7 @@ stages:
       size: 99246
   evaluate_predictions:
     cmd: python -m src.models.evaluate_predictions data/processed/test_dataset.csv
-      reports/predictions.csv reports/metrics.csv
+      reports/predictions.csv reports/metrics.json
     deps:
     - path: data/processed/test_dataset.csv
       md5: 8fe3930b1669af689f1fa696ef1e8c49
@@ -88,12 +88,12 @@ stages:
       md5: 3b13fc069c539044fa0ae9448f0cb2a9
       size: 99246
     - path: src/models/evaluate_predictions.py
-      md5: 637ba73daa6bbe9bf6c94b70ae37ae15
-      size: 852
+      md5: 581fab2e0e7f12b142ccbdf4f8f08ce7
+      size: 875
     outs:
-    - path: reports/metrics.csv
-      md5: 8a9f431e5f6d8e27177b4eae27b0c09a
-      size: 32
+    - path: reports/metrics.json
+      md5: b78f47b85260237f49a65751a224230d
+      size: 31
   get_unique_column_values:
     cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
       reports/unique_column_values.pkl

@@ -57,10 +57,10 @@ stages:
 
   evaluate_predictions:
     cmd: python -m src.models.evaluate_predictions
-      data/processed/test_dataset.csv reports/predictions.csv reports/metrics.csv
+      data/processed/test_dataset.csv reports/predictions.csv reports/metrics.json
     deps:
       - src/models/evaluate_predictions.py
       - data/processed/test_dataset.csv
       - reports/predictions.csv
-    outs:
-      - reports/metrics.csv
+    metrics:
+      - reports/metrics.json

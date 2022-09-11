@@ -1,3 +1,4 @@
 /metrics.csv
 /predictions.csv
 /unique_column_values.pkl
+/metrics.json

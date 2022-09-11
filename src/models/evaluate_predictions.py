@@ -1,5 +1,6 @@
 import click
 import pandas as pd
+import json
 from sklearn.metrics import roc_auc_score
 
 
@@ -14,9 +15,9 @@ def evaluate_predictions(input_data_path, input_predictions_path, output_metrics
 
     predictions = pd.read_csv(input_predictions_path, header=None)
 
-    metrics = pd.DataFrame({'roc_auc': roc_auc_score(y, predictions.iloc[:, 1])}, index=[0])
-
-    metrics.to_csv(output_metrics_path)
+    metrics = {'roc_auc': roc_auc_score(y, predictions.iloc[:, 1])}
+    with open(output_metrics_path, 'w') as f:
+        json.dump(metrics, f)
 
 
 if __name__ == '__main__':
