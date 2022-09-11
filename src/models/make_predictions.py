@@ -10,7 +10,7 @@ import numpy as np
 @click.argument('output_predictions_path', type=click.Path())
 def make_predictions(input_data_path, input_model_path, output_predictions_path):
     df = pd.read_csv(input_data_path)
-    X = df.drop(['BAD_CLIENT'], axis=1)
+    X = df.drop(['BAD_CLIENT'], axis=1, errors='ignore')
 
     model = joblib.load(input_model_path)
 

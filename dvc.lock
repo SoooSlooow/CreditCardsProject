@@ -71,8 +71,8 @@ stages:
       md5: 72dfb9bace750c2737c918b053304f6f
       size: 1137378
     - path: src/models/make_predictions.py
-      md5: d02c9d6151737a6a790191837341af06
-      size: 795
+      md5: bc651b363799e67090611f13317abce2
+      size: 812
     outs:
     - path: reports/predictions.csv
       md5: cf957f6eca4785d9871f5b3fae52199b
