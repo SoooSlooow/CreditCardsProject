@@ -9,14 +9,14 @@ import random
 def predict(*args):
     app_df = pd.DataFrame(data=[args], columns=COLUMNS, index=[0])
     app_df.to_csv(OUTPUT_DATA_PATH, index=False)
-    os.system('python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl reports/app_predictions.csv')
+    os.system('python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv')
     predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=',')
     return predictions[0]
 
 
 OUTPUT_DATA_PATH = 'data/processed/app_dataset.csv'
-PREDICTIONS_PATH = 'reports/app_predictions.csv'
-UNIQUE_VALUES_PATH = 'reports/unique_column_values.pkl'
+PREDICTIONS_PATH = 'models/predictions/app_predictions.csv'
+UNIQUE_VALUES_PATH = 'models/other/unique_column_values.pkl'
 
 COLUMNS = (
     'YEARS_BIRTH', 'CODE_GENDER', 'AMT_INCOME_TOTAL', 'NAME_INCOME_TYPE',
@@ -25,7 +25,7 @@ COLUMNS = (
     'FLAG_OWN_REALTY', 'NAME_HOUSING_TYPE', 'FLAG_PHONE', 'FLAG_WORK_PHONE',
     'FLAG_EMAIL'
 )
-unique_values = joblib.load('reports/unique_column_values.pkl')
+unique_values = joblib.load('models/other/unique_column_values.pkl')
 
 # starting the block
 

@@ -62,7 +62,7 @@ stages:
       size: 1136706
   make_predictions:
     cmd: python -m src.models.make_predictions data/processed/test_dataset.csv models/final_model.pkl
-      reports/predictions.csv
+      models/predictions/predictions.csv
     deps:
     - path: data/processed/test_dataset.csv
       md5: 8fe3930b1669af689f1fa696ef1e8c49
@@ -74,29 +74,29 @@ stages:
       md5: bc651b363799e67090611f13317abce2
       size: 812
     outs:
-    - path: reports/predictions.csv
+    - path: models/predictions/predictions.csv
       md5: 3b13fc069c539044fa0ae9448f0cb2a9
       size: 99246
   evaluate_predictions:
     cmd: python -m src.models.evaluate_predictions data/processed/test_dataset.csv
-      reports/predictions.csv reports/metrics.json
+      models/predictions/predictions.csv models/metrics/metrics.json
     deps:
     - path: data/processed/test_dataset.csv
       md5: 8fe3930b1669af689f1fa696ef1e8c49
       size: 289710
-    - path: reports/predictions.csv
+    - path: models/predictions/predictions.csv
       md5: 3b13fc069c539044fa0ae9448f0cb2a9
       size: 99246
     - path: src/models/evaluate_predictions.py
       md5: 581fab2e0e7f12b142ccbdf4f8f08ce7
       size: 875
     outs:
-    - path: reports/metrics.json
+    - path: models/metrics/metrics.json
       md5: b78f47b85260237f49a65751a224230d
       size: 31
   get_unique_column_values:
     cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
-      reports/unique_column_values.pkl
+      models/other/unique_column_values.pkl
     deps:
     - path: data/interim/cleaned_dataset.csv
       md5: 307b04cbbf3bf16158d2806636ccf17c
@@ -105,6 +105,6 @@ stages:
       md5: 7530ba67c6d920e6594bf0c07114a645
       size: 648
     outs:
-    - path: reports/unique_column_values.pkl
+    - path: models/other/unique_column_values.pkl
       md5: f70ee0b62931b9e172c520688ea0f0a5
       size: 978

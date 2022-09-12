@@ -20,12 +20,12 @@ stages:
 
   get_unique_column_values:
     cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
-      reports/unique_column_values.pkl
+      models/other/unique_column_values.pkl
     deps:
       - src/data/get_unique_column_values.py
       - data/interim/cleaned_dataset.csv
     outs:
-      - reports/unique_column_values.pkl
+      - models/other/unique_column_values.pkl
 
   get_train_test:
     cmd: python -m src.data.get_train_test
@@ -47,20 +47,20 @@ stages:
 
   make_predictions:
     cmd: python -m src.models.make_predictions
-      data/processed/test_dataset.csv models/final_model.pkl reports/predictions.csv
+      data/processed/test_dataset.csv models/final_model.pkl models/predictions/predictions.csv
     deps:
       - src/models/make_predictions.py
       - data/processed/test_dataset.csv
       - models/final_model.pkl
     outs:
-      - reports/predictions.csv
+      - models/predictions/predictions.csv
 
   evaluate_predictions:
     cmd: python -m src.models.evaluate_predictions
-      data/processed/test_dataset.csv reports/predictions.csv reports/metrics.json
+      data/processed/test_dataset.csv models/predictions/predictions.csv models/metrics/metrics.json
     deps:
       - src/models/evaluate_predictions.py
       - data/processed/test_dataset.csv
-      - reports/predictions.csv
+      - models/predictions/predictions.csv
     metrics:
-      - reports/metrics.json
+      - models/metrics/metrics.json
