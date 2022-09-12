@@ -1,9 +1,7 @@
-from src.features.fs_utils import create_column_transformers, create_pipeline
+from src.utils import create_column_transformers, create_pipeline
 import os
 import optuna
 import joblib
-import numpy as np
-import pandas as pd
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.linear_model import LogisticRegression
@@ -11,7 +9,6 @@ from sklearn.ensemble import RandomForestClassifier
 from lightgbm import LGBMClassifier
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
-from sklearn.metrics import roc_auc_score
 
 
 def optimize_logreg(output_folder, df, n_trials=100,

@@ -2,7 +2,7 @@ import click
 import joblib
 import pandas as pd
 from lightgbm import LGBMClassifier
-from src.features.fs_utils import create_column_transformers, create_pipeline
+from src.utils import create_column_transformers, create_pipeline
 
 
 @click.command()
