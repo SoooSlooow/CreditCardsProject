@@ -8,6 +8,12 @@ from sklearn.model_selection import ShuffleSplit
 @click.argument('output_train_data_path', type=click.Path())
 @click.argument('output_test_data_path', type=click.Path())
 def get_train_test(input_data_path: str, output_train_data_path: str, output_test_data_path: str) -> None:
+    """
+    Делит данные на тренировочные и тестовые
+    :param input_data_path: путь к очищенным данным
+    :param output_train_data_path: путь к получаемым тренировочным данным
+    :param output_test_data_path: путь к получаемым тестовым данным
+    """
     df = pd.read_csv(input_data_path)
     train_indices, test_indices = next(ShuffleSplit(n_splits=1, test_size=0.2, random_state=0).split(df))
     train_df = df.iloc[train_indices, :]

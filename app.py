@@ -4,13 +4,14 @@ import numpy as np
 import joblib
 import os
 import random
+from typing import Any
 
 
-def predict(*args: tuple) -> float:
+def predict(*args: tuple) -> Any:
     app_df = pd.DataFrame(data=[args], columns=COLUMNS, index=[0])
     app_df.to_csv(OUTPUT_DATA_PATH, index=False)
     os.system('python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv')
-    predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=',')
+    predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=',', skip_header=1)
     return predictions[0]
 
 

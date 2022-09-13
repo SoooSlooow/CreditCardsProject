@@ -6,6 +6,11 @@ import click
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
 def clean_dataset(input_filepath: str, output_filepath: str) -> None:
+    """
+    Производит очистку данных
+    :param input_filepath: путь к изначальным данным
+    :param output_filepath: путь к получаемым очищенным данным
+    """
 
     df = pd.read_csv(input_filepath)
 
