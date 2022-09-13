@@ -8,7 +8,7 @@ from sklearn.metrics import roc_auc_score
 @click.argument('input_data_path', type=click.Path(exists=True))
 @click.argument('input_predictions_path', type=click.Path(exists=True))
 @click.argument('output_metrics_path', type=click.Path())
-def evaluate_predictions(input_data_path, input_predictions_path, output_metrics_path):
+def evaluate_predictions(input_data_path: str, input_predictions_path: str, output_metrics_path: str) -> None:
 
     df = pd.read_csv(input_data_path)
     y = df['BAD_CLIENT']

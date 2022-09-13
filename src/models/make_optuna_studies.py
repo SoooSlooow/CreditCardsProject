@@ -10,7 +10,7 @@ from src.models.optuna_objectives import optimize_catboost
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_folder_path', type=click.Path())
-def make_optuna_studies(input_filepath, output_folder_path):
+def make_optuna_studies(input_filepath: str, output_folder_path: str) -> None:
 
     df = pd.read_csv(input_filepath)
 
@@ -22,6 +22,3 @@ def make_optuna_studies(input_filepath, output_folder_path):
 if __name__ == '__main__':
     make_optuna_studies()
 
-'''
-python -m src.models.make_optuna_studies data/interim/cleaned_dataset.csv models/optuna_studies
-'''

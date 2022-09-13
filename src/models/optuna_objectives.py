@@ -1,3 +1,5 @@
+from typing import Any
+import pandas as pd
 from src.utils import create_column_transformers, create_pipeline
 import os
 import optuna
@@ -11,9 +13,9 @@ from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
 
 
-def optimize_logreg(output_folder, df, n_trials=100,
-                    cv=RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
-                    ):
+def optimize_logreg(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
+                    cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
+                    ) -> None:
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -32,9 +34,9 @@ def optimize_logreg(output_folder, df, n_trials=100,
     joblib.dump(study, os.path.join(output_folder, 'study_logreg.pkl'))
 
 
-def optimize_rf(output_folder, df, n_trials=100,
-                cv=RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
-                ):
+def optimize_rf(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
+                cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
+                ) -> None:
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -56,9 +58,9 @@ def optimize_rf(output_folder, df, n_trials=100,
     joblib.dump(study, os.path.join(output_folder, 'study_rf.pkl'))
 
 
-def optimize_lgbm(output_folder, df, n_trials=100,
-                  cv=RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
-                  ):
+def optimize_lgbm(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
+                  cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
+                  ) -> None:
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -84,9 +86,9 @@ def optimize_lgbm(output_folder, df, n_trials=100,
     joblib.dump(study, os.path.join(output_folder, 'study_lgbm.pkl'))
 
 
-def optimize_xgboost(output_folder, df, n_trials=100,
-                     cv=RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
-                     ):
+def optimize_xgboost(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
+                     cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
+                     ) -> None:
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -112,9 +114,9 @@ def optimize_xgboost(output_folder, df, n_trials=100,
     joblib.dump(study, os.path.join(output_folder, 'study_xgboost.pkl'))
 
 
-def optimize_catboost(output_folder, df, n_trials=100,
-                      cv=RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
-                      ):
+def optimize_catboost(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
+                      cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
+                      ) -> None:
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)

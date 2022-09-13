@@ -44,7 +44,7 @@ def get_initial_df(application_df: pd.DataFrame, data_labels: pd.Series) -> pd.D
 @click.argument('input_filepath_app_data', type=click.Path(exists=True))
 @click.argument('input_filepath_credit_data', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
-def make_dataset(input_filepath_app_data, input_filepath_credit_data, output_filepath):
+def make_dataset(input_filepath_app_data: str, input_filepath_credit_data: str, output_filepath: str) -> None:
 
     application_data = pd.read_csv(input_filepath_app_data)
     credit_data = pd.read_csv(input_filepath_credit_data)

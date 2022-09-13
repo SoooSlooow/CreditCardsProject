@@ -5,7 +5,7 @@ import click
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
-def clean_dataset(input_filepath, output_filepath):
+def clean_dataset(input_filepath: str, output_filepath: str) -> None:
 
     df = pd.read_csv(input_filepath)
 
@@ -41,4 +41,3 @@ def clean_dataset(input_filepath, output_filepath):
 if __name__ == '__main__':
     clean_dataset()
 
-# python -m src.data.clean_dataset data/interim/initial_dataset.csv data/interim/cleaned_dataset.csv

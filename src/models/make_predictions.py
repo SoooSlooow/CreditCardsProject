@@ -8,7 +8,7 @@ import numpy as np
 @click.argument('input_data_path', type=click.Path(exists=True))
 @click.argument('input_model_path', type=click.Path(exists=True))
 @click.argument('output_predictions_path', type=click.Path())
-def make_predictions(input_data_path, input_model_path, output_predictions_path):
+def make_predictions(input_data_path: str, input_model_path: str, output_predictions_path: str) -> None:
     df = pd.read_csv(input_data_path)
     X = df.drop(['BAD_CLIENT'], axis=1, errors='ignore')
 

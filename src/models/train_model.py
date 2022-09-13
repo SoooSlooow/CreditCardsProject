@@ -8,7 +8,7 @@ from src.utils import create_column_transformers, create_pipeline
 @click.command()
 @click.argument('input_data_path', type=click.Path(exists=True))
 @click.argument('output_model_path', type=click.Path())
-def train_model(input_data_path, output_model_path):
+def train_model(input_data_path: str, output_model_path: str) -> None:
     df = pd.read_csv(input_data_path)
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
