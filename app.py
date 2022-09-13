@@ -6,7 +6,7 @@ import os
 import random
 
 
-def predict(*args):
+def predict(*args: tuple) -> float:
     app_df = pd.DataFrame(data=[args], columns=COLUMNS, index=[0])
     app_df.to_csv(OUTPUT_DATA_PATH, index=False)
     os.system('python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv')
@@ -27,12 +27,9 @@ COLUMNS = (
 )
 unique_values = joblib.load('models/other/unique_column_values.pkl')
 
-# starting the block
-
 with gr.Blocks() as demo:
-    # defining text on the page
     gr.Markdown("""
-    **Income Classification with XGBoost 💰**:  This demo uses an XGBoost classifier predicts income based on demographic factors, along with Shapley value-based *explanations*. The [source code for this Gradio demo is here](https://huggingface.co/spaces/gradio/xgboost-income-prediction-with-explainability/blob/main/app.py).
+    Здарова
     """)
     # defining the layout
     with gr.Row():
@@ -87,6 +84,8 @@ with gr.Blocks() as demo:
                 step=1,
                 randomize=True
             )
+
+        with gr.Column():
             family_status = gr.Dropdown(
                 label='Family status',
                 choices=unique_values['NAME_FAMILY_STATUS'],
@@ -124,12 +123,9 @@ with gr.Blocks() as demo:
             )
 
         with gr.Column():
-            # defining the outputs
             label = gr.Label()
             with gr.Row():
-                # defining the buttons
                 predict_btn = gr.Button(value="Predict")
-            # defining the fn that will run when predict is clicked, what it will get as inputs, and which output it will update
             predict_btn.click(
                 predict,
                 inputs=[

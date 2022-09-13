@@ -1,7 +1,7 @@
 import click
 import pandas as pd
 import json
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, precision_score, recall_score
 
 
 @click.command()
@@ -13,9 +13,11 @@ def evaluate_predictions(input_data_path: str, input_predictions_path: str, outp
     df = pd.read_csv(input_data_path)
     y = df['BAD_CLIENT']
 
-    predictions = pd.read_csv(input_predictions_path, header=None)
+    predictions = pd.read_csv(input_predictions_path)
 
-    metrics = {'roc_auc': roc_auc_score(y, predictions.iloc[:, 1])}
+    metrics = {'roc_auc': roc_auc_score(y, predictions['proba_1']),
+               'precision': precision_score(y, predictions['bad_client_label']),
+               'recall': recall_score(y, predictions['bad_client_label'])}
     with open(output_metrics_path, 'w') as f:
         json.dump(metrics, f)
 

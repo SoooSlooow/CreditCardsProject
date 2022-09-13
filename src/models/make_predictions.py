@@ -13,10 +13,13 @@ def make_predictions(input_data_path: str, input_model_path: str, output_predict
     X = df.drop(['BAD_CLIENT'], axis=1, errors='ignore')
 
     model = joblib.load(input_model_path)
+    probas = model.predict_proba(X)
+    labels = (probas[:, 1] > 0.01).astype(int)
+    predictions = pd.DataFrame(data=np.column_stack([probas, labels]), columns=['proba_0',
+                                                                                'proba_1',
+                                                                                'bad_client_label'])
 
-    predictions = model.predict_proba(X)
-
-    np.savetxt(output_predictions_path, predictions, delimiter=',')
+    predictions.to_csv(output_predictions_path, index=False)
 
 
 if __name__ == '__main__':

@@ -32,6 +32,12 @@ def get_labels(application_df: pd.DataFrame, credit_df: pd.DataFrame) -> pd.Seri
 
 
 def get_initial_df(application_df: pd.DataFrame, data_labels: pd.Series) -> pd.DataFrame:
+    """
+    
+    :param application_df:
+    :param data_labels:
+    :return:
+    """
     initial_preprocessed_df = application_df.merge(data_labels, how='inner', on='CLIENT_ID')
     subset = list(initial_preprocessed_df.columns.values)
     subset.remove('ID')
@@ -58,6 +64,3 @@ def make_dataset(input_filepath_app_data: str, input_filepath_credit_data: str, 
 if __name__ == '__main__':
     make_dataset()
 
-'''
-python -m src.data.make_dataset data/raw/application_record.csv data/raw/credit_record.csv data/interim/initial_dataset.csv
-'''
