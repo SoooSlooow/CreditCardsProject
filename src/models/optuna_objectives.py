@@ -16,6 +16,13 @@ from catboost import CatBoostClassifier
 def optimize_logreg(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
                     cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
                     ) -> None:
+    """
+    Создает optuna study для логистической регрессии, проводит оптимизацию и сохраняет результат в pkl-файл
+    :param output_folder: путь к папке, в которой будет записан файл с результатами оптимизации
+    :param df: исходные данные
+    :param n_trials: число итераций в процессе оптимизации
+    :param cv: метод кросс-валидации
+    """
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -37,6 +44,13 @@ def optimize_logreg(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
 def optimize_rf(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
                 cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
                 ) -> None:
+    """
+    Создает optuna study для случайного леса, проводит оптимизацию и сохраняет результат в pkl-файл
+    :param output_folder: путь к папке, в которой будет записан файл с результатами оптимизации
+    :param df: исходные данные
+    :param n_trials: число итераций в процессе оптимизации
+    :param cv: метод кросс-валидации
+    """
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -61,6 +75,13 @@ def optimize_rf(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
 def optimize_lgbm(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
                   cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
                   ) -> None:
+    """
+    Создает optuna study для lgbm-классификатора, проводит оптимизацию и сохраняет результат в pkl-файл
+    :param output_folder: путь к папке, в которой будет записан файл с результатами оптимизации
+    :param df: исходные данные
+    :param n_trials: число итераций в процессе оптимизации
+    :param cv: метод кросс-валидации
+    """
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -89,6 +110,13 @@ def optimize_lgbm(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
 def optimize_xgboost(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
                      cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
                      ) -> None:
+    """
+    Создает optuna study для xgboost-классификатора, проводит оптимизацию и сохраняет результат в pkl-файл
+    :param output_folder: путь к папке, в которой будет записан файл с результатами оптимизации
+    :param df: исходные данные
+    :param n_trials: число итераций в процессе оптимизации
+    :param cv: метод кросс-валидации
+    """
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
@@ -117,6 +145,13 @@ def optimize_xgboost(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
 def optimize_catboost(output_folder: str, df: pd.DataFrame, n_trials: int = 100,
                       cv: Any = RepeatedStratifiedKFold(n_splits=5, n_repeats=10, random_state=0)
                       ) -> None:
+    """
+    Создает optuna study для catboost-классификатора, проводит оптимизацию и сохраняет результат в pkl-файл
+    :param output_folder: путь к папке, в которой будет записан файл с результатами оптимизации
+    :param df: исходные данные
+    :param n_trials: число итераций в процессе оптимизации
+    :param cv: метод кросс-валидации
+    """
     X = df.drop(['BAD_CLIENT'], axis=1)
     y = df['BAD_CLIENT']
     column_transformers = create_column_transformers(X)
