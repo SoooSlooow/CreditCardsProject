@@ -1,6 +1,6 @@
-import pandas as pd
-import joblib
 import click
+import joblib
+import pandas as pd
 
 
 @click.command()

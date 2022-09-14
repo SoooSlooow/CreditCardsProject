@@ -1,3 +1,3 @@
-import os
+import subprocess
 
-os.system("dvc repro")
+subprocess.run(["dvc", "repro", "-f"], shell=True)

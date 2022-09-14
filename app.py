@@ -1,17 +1,26 @@
-import gradio as gr
-import pandas as pd
-import numpy as np
-import joblib
-import os
+import subprocess
 import random
 from typing import Any
 
+import gradio as gr
+import joblib
+import numpy as np
+import pandas as pd
+
 
 def predict(*args: tuple) -> Any:
-    app_df = pd.DataFrame(data=[args], columns=COLUMNS, index=[0])
+    app_df = pd.DataFrame(data=[args], columns=columns, index=[0])
     app_df.to_csv(OUTPUT_DATA_PATH, index=False)
-    os.system(
-        "python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv"
+    subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.models.make_predictions",
+            "data/processed/app_dataset.csv",
+            "models/final_model.pkl",
+            "models/predictions/app_predictions.csv",
+        ],
+        shell=True,
     )
     predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=",", skip_header=1)
     return predictions[0]
@@ -21,7 +30,7 @@ OUTPUT_DATA_PATH = "data/processed/app_dataset.csv"
 PREDICTIONS_PATH = "models/predictions/app_predictions.csv"
 UNIQUE_VALUES_PATH = "models/other/unique_column_values.pkl"
 
-COLUMNS = (
+columns = (
     "YEARS_BIRTH",
     "CODE_GENDER",
     "AMT_INCOME_TOTAL",
@@ -39,7 +48,7 @@ COLUMNS = (
     "FLAG_WORK_PHONE",
     "FLAG_EMAIL",
 )
-unique_values = joblib.load("models/other/unique_column_values.pkl")
+unique_values = joblib.load(UNIQUE_VALUES_PATH)
 
 with gr.Blocks() as demo:
     gr.Markdown(

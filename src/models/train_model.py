@@ -1,7 +1,8 @@
 import click
 import joblib
-import pandas as pd
 from lightgbm import LGBMClassifier
+import pandas as pd
+
 from src.utils import create_column_transformers, create_pipeline
 
 

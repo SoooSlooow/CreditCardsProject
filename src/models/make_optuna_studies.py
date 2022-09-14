@@ -1,5 +1,6 @@
-import pandas as pd
 import click
+import pandas as pd
+
 from src.models.optuna_objectives import optimize_logreg
 from src.models.optuna_objectives import optimize_rf
 from src.models.optuna_objectives import optimize_xgboost

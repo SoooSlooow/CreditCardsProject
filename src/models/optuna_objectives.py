@@ -1,16 +1,17 @@
-from typing import Any
-import pandas as pd
-from src.utils import create_column_transformers, create_pipeline
 import os
-import optuna
-import joblib
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from lightgbm import LGBMClassifier
-from xgboost import XGBClassifier
+from typing import Any
+
 from catboost import CatBoostClassifier
+import joblib
+from lightgbm import LGBMClassifier
+import optuna
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score, RepeatedStratifiedKFold
+from xgboost import XGBClassifier
+
+from src.utils import create_column_transformers, create_pipeline
 
 
 def optimize_logreg(

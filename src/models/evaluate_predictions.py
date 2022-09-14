@@ -1,6 +1,7 @@
+import json
+
 import click
 import pandas as pd
-import json
 from sklearn.metrics import roc_auc_score, precision_score, recall_score
 
 
