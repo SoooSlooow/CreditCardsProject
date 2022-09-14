@@ -1,3 +1,3 @@
 import os
 
-os.system('dvc repro')
+os.system("dvc repro")

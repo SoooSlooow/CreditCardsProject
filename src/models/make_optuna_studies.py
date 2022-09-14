@@ -8,8 +8,8 @@ from src.models.optuna_objectives import optimize_catboost
 
 
 @click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_folder_path', type=click.Path())
+@click.argument("input_filepath", type=click.Path(exists=True))
+@click.argument("output_folder_path", type=click.Path())
 def make_optuna_studies(input_data_filepath: str, output_folder_path: str) -> None:
     """
     Создает optuna studies для различных классификаторов, проводит оптимизацию и записывает результаты
@@ -25,6 +25,5 @@ def make_optuna_studies(input_data_filepath: str, output_folder_path: str) -> No
     optimize_lgbm(output_folder_path, df)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     make_optuna_studies()
-

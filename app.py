@@ -10,117 +10,132 @@ from typing import Any
 def predict(*args: tuple) -> Any:
     app_df = pd.DataFrame(data=[args], columns=COLUMNS, index=[0])
     app_df.to_csv(OUTPUT_DATA_PATH, index=False)
-    os.system('python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv')
-    predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=',', skip_header=1)
+    os.system(
+        "python -m src.models.make_predictions data/processed/app_dataset.csv models/final_model.pkl models/predictions/app_predictions.csv"
+    )
+    predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=",", skip_header=1)
     return predictions[0]
 
 
-OUTPUT_DATA_PATH = 'data/processed/app_dataset.csv'
-PREDICTIONS_PATH = 'models/predictions/app_predictions.csv'
-UNIQUE_VALUES_PATH = 'models/other/unique_column_values.pkl'
+OUTPUT_DATA_PATH = "data/processed/app_dataset.csv"
+PREDICTIONS_PATH = "models/predictions/app_predictions.csv"
+UNIQUE_VALUES_PATH = "models/other/unique_column_values.pkl"
 
 COLUMNS = (
-    'YEARS_BIRTH', 'CODE_GENDER', 'AMT_INCOME_TOTAL', 'NAME_INCOME_TYPE',
-    'YEARS_EMPLOYED', 'OCCUPATION_TYPE', 'NAME_EDUCATION_TYPE',
-    'CNT_FAM_MEMBERS', 'CNT_CHILDREN', 'NAME_FAMILY_STATUS', 'FLAG_OWN_CAR',
-    'FLAG_OWN_REALTY', 'NAME_HOUSING_TYPE', 'FLAG_PHONE', 'FLAG_WORK_PHONE',
-    'FLAG_EMAIL'
+    "YEARS_BIRTH",
+    "CODE_GENDER",
+    "AMT_INCOME_TOTAL",
+    "NAME_INCOME_TYPE",
+    "YEARS_EMPLOYED",
+    "OCCUPATION_TYPE",
+    "NAME_EDUCATION_TYPE",
+    "CNT_FAM_MEMBERS",
+    "CNT_CHILDREN",
+    "NAME_FAMILY_STATUS",
+    "FLAG_OWN_CAR",
+    "FLAG_OWN_REALTY",
+    "NAME_HOUSING_TYPE",
+    "FLAG_PHONE",
+    "FLAG_WORK_PHONE",
+    "FLAG_EMAIL",
 )
-unique_values = joblib.load('models/other/unique_column_values.pkl')
+unique_values = joblib.load("models/other/unique_column_values.pkl")
 
 with gr.Blocks() as demo:
-    gr.Markdown("""
+    gr.Markdown(
+        """
     Здарова
-    """)
+    """
+    )
     # defining the layout
     with gr.Row():
         with gr.Column():
             # defining the inputs
-            age = gr.Slider(label='Age', minimum=18, maximum=90, step=1, randomize=True)
+            age = gr.Slider(label="Age", minimum=18, maximum=90, step=1, randomize=True)
             sex = gr.Dropdown(
-                label='Sex',
-                choices=unique_values['CODE_GENDER'],
-                value=lambda: random.choice(unique_values['CODE_GENDER'])
+                label="Sex",
+                choices=unique_values["CODE_GENDER"],
+                value=lambda: random.choice(unique_values["CODE_GENDER"]),
             )
             annual_income = gr.Slider(
-                label='Annual income',
+                label="Annual income",
                 minimum=0,
                 maximum=7000000,
                 step=10000,
-                randomize=True
+                randomize=True,
             )
             income_type = gr.Dropdown(
-                label='Income type',
-                choices=unique_values['NAME_INCOME_TYPE'],
-                value=lambda: random.choice(unique_values['NAME_INCOME_TYPE'])
+                label="Income type",
+                choices=unique_values["NAME_INCOME_TYPE"],
+                value=lambda: random.choice(unique_values["NAME_INCOME_TYPE"]),
             )
             work_experience = gr.Slider(
-                label='Work experience at current position',
+                label="Work experience at current position",
                 minimum=0,
                 maximum=75,
                 step=1,
-                randomize=True
+                randomize=True,
             )
             occupation_type = gr.Dropdown(
-                label='Occupation type',
-                choices=unique_values['OCCUPATION_TYPE'],
-                value=lambda: random.choice(unique_values['OCCUPATION_TYPE'])
+                label="Occupation type",
+                choices=unique_values["OCCUPATION_TYPE"],
+                value=lambda: random.choice(unique_values["OCCUPATION_TYPE"]),
             )
             education_type = gr.Dropdown(
-                label='Education type',
-                choices=unique_values['NAME_EDUCATION_TYPE'],
-                value=lambda: random.choice(unique_values['NAME_EDUCATION_TYPE'])
+                label="Education type",
+                choices=unique_values["NAME_EDUCATION_TYPE"],
+                value=lambda: random.choice(unique_values["NAME_EDUCATION_TYPE"]),
             )
             amount_of_family_members = gr.Slider(
-                label='Amount of family members',
+                label="Amount of family members",
                 minimum=0,
                 maximum=12,
                 step=1,
-                randomize=True
+                randomize=True,
             )
             amount_of_children = gr.Slider(
-                label='Amount of children',
+                label="Amount of children",
                 minimum=0,
                 maximum=10,
                 step=1,
-                randomize=True
+                randomize=True,
             )
 
         with gr.Column():
             family_status = gr.Dropdown(
-                label='Family status',
-                choices=unique_values['NAME_FAMILY_STATUS'],
-                value=lambda: random.choice(unique_values['NAME_FAMILY_STATUS'])
+                label="Family status",
+                choices=unique_values["NAME_FAMILY_STATUS"],
+                value=lambda: random.choice(unique_values["NAME_FAMILY_STATUS"]),
             )
             flag_own_car = gr.Dropdown(
-                label='Having a car',
-                choices=unique_values['FLAG_OWN_REALTY'],
-                value=lambda: random.choice(unique_values['FLAG_OWN_REALTY'])
+                label="Having a car",
+                choices=unique_values["FLAG_OWN_REALTY"],
+                value=lambda: random.choice(unique_values["FLAG_OWN_REALTY"]),
             )
             flag_own_realty = gr.Dropdown(
-                label='Having a realty',
-                choices=unique_values['FLAG_OWN_REALTY'],
-                value=lambda: random.choice(unique_values['FLAG_OWN_REALTY'])
+                label="Having a realty",
+                choices=unique_values["FLAG_OWN_REALTY"],
+                value=lambda: random.choice(unique_values["FLAG_OWN_REALTY"]),
             )
             housing_type = gr.Dropdown(
-                label='Housing type',
-                choices=unique_values['NAME_HOUSING_TYPE'],
-                value=lambda: random.choice(unique_values['NAME_HOUSING_TYPE'])
+                label="Housing type",
+                choices=unique_values["NAME_HOUSING_TYPE"],
+                value=lambda: random.choice(unique_values["NAME_HOUSING_TYPE"]),
             )
             flag_phone = gr.Dropdown(
-                label='Having a phone',
-                choices=unique_values['FLAG_PHONE'],
-                value=lambda: random.choice(unique_values['FLAG_PHONE'])
+                label="Having a phone",
+                choices=unique_values["FLAG_PHONE"],
+                value=lambda: random.choice(unique_values["FLAG_PHONE"]),
             )
             flag_work_phone = gr.Dropdown(
-                label='Having a work phone',
-                choices=unique_values['FLAG_WORK_PHONE'],
-                value=lambda: random.choice(unique_values['FLAG_WORK_PHONE'])
+                label="Having a work phone",
+                choices=unique_values["FLAG_WORK_PHONE"],
+                value=lambda: random.choice(unique_values["FLAG_WORK_PHONE"]),
             )
             flag_email = gr.Dropdown(
-                label='Having an email',
-                choices=unique_values['FLAG_EMAIL'],
-                value=lambda: random.choice(unique_values['FLAG_EMAIL'])
+                label="Having an email",
+                choices=unique_values["FLAG_EMAIL"],
+                value=lambda: random.choice(unique_values["FLAG_EMAIL"]),
             )
 
         with gr.Column():
@@ -145,7 +160,7 @@ with gr.Blocks() as demo:
                     housing_type,
                     flag_phone,
                     flag_work_phone,
-                    flag_email
+                    flag_email,
                 ],
                 outputs=[label],
             )
