@@ -18,7 +18,7 @@ class RatioFeatures:
         self.n_of_features = None
         self.n_of_input_features = None
 
-    def fit(self, X: np.ndarray, y: None = None) -> None:
+    def fit(self, X: np.ndarray, y: None = None):
         """
         Вычисляет число добавляемых признаков
         :param X: исходные данные
@@ -29,6 +29,7 @@ class RatioFeatures:
         for i in range(self.n_of_input_features):
             for j in range(i + 1, self.n_of_input_features):
                 self.n_of_features += 1
+        return self
 
     def transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -211,7 +212,6 @@ def get_features_transformation_info(
 
     column_transformers = create_column_transformers(X)
     feature_selectors = create_feature_selectors()
-
     ft_info = pd.DataFrame(
         data=np.zeros((len(feature_selectors), len(column_transformers))),
         index=feature_selectors.keys(),
