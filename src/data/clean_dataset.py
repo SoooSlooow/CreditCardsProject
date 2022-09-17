@@ -32,7 +32,7 @@ def clean_dataset(input_filepath: str, output_filepath: str) -> None:
         "FLAG_PHONE",
         "FLAG_EMAIL",
     ]
-    df[flag_cols] = df[flag_cols].applymap(lambda x: "Yes" if x == 1 else "No")
+    df[flag_cols] = df[flag_cols].applymap(lambda x: "Yes" if x == 1 or x == 'Y' else "No")
 
     df["YEARS_BIRTH"] = -df["DAYS_BIRTH"] / 365.2425
     df["YEARS_EMPLOYED"] = -df["DAYS_EMPLOYED"] / 365.2425

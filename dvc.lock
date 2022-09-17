@@ -11,8 +11,8 @@ stages:
       md5: 6ac9996c3fc235d6837c1bc5b8e4ed2f
       size: 15367102
     - path: src/data/make_dataset.py
-      md5: 3bd544e81dae5bd7ce42ac97d6142e81
-      size: 4337
+      md5: 6e90a061c63b3a083e7ece4e11cf62fc
+      size: 4339
     outs:
     - path: data/interim/initial_dataset.csv
       md5: 174ea00a2179662567a2c87132e1406c
@@ -24,87 +24,87 @@ stages:
       md5: 174ea00a2179662567a2c87132e1406c
       size: 1207422
     - path: src/data/clean_dataset.py
-      md5: 817e5b2e45c3575cd798f937519705f4
-      size: 2022
+      md5: 10a0a23c39060e4c588958d6dd006c37
+      size: 2036
     outs:
     - path: data/interim/cleaned_dataset.csv
-      md5: 307b04cbbf3bf16158d2806636ccf17c
-      size: 1452345
+      md5: 65a2b87d156b58fc071b741b0e5681a2
+      size: 1462453
   get_train_test:
     cmd: python -m src.data.get_train_test data/interim/cleaned_dataset.csv data/processed/train_dataset.csv
       data/processed/test_dataset.csv
     deps:
     - path: data/interim/cleaned_dataset.csv
-      md5: 307b04cbbf3bf16158d2806636ccf17c
-      size: 1452345
+      md5: 65a2b87d156b58fc071b741b0e5681a2
+      size: 1462453
     - path: src/data/get_train_test.py
       md5: 8eec9c21755edf1256fcfd1ff1fd62ac
       size: 1348
     outs:
     - path: data/processed/test_dataset.csv
-      md5: 8fe3930b1669af689f1fa696ef1e8c49
-      size: 289710
+      md5: b91cf88f9c7acab82eb7bd1ff48032d5
+      size: 291752
     - path: data/processed/train_dataset.csv
-      md5: a7a163849d30988c1683c7a2c51ee9f9
-      size: 1157247
+      md5: 1b95a973d536ac2c6b6987a2d37a6a5b
+      size: 1165313
   train_model:
     cmd: python -m src.models.train_model data/processed/train_dataset.csv models/final_model.pkl
     deps:
     - path: data/processed/train_dataset.csv
-      md5: a7a163849d30988c1683c7a2c51ee9f9
-      size: 1157247
+      md5: 1b95a973d536ac2c6b6987a2d37a6a5b
+      size: 1165313
     - path: src/models/train_model.py
-      md5: c848e40b1ac52b8acb93e6f8724a6a61
-      size: 1427
+      md5: 35ba6be2e1082e277aa9e0706b478b17
+      size: 1429
     outs:
     - path: models/final_model.pkl
-      md5: 0901cf85b2cd00d7e40edbab7146898f
-      size: 1136706
+      md5: 34c06ce0d1f6b8c78166f4017a5cc169
+      size: 1137472
   make_predictions:
     cmd: python -m src.models.make_predictions data/processed/test_dataset.csv models/final_model.pkl
       models/predictions/predictions.csv
     deps:
     - path: data/processed/test_dataset.csv
-      md5: 8fe3930b1669af689f1fa696ef1e8c49
-      size: 289710
+      md5: b91cf88f9c7acab82eb7bd1ff48032d5
+      size: 291752
     - path: models/final_model.pkl
-      md5: 0901cf85b2cd00d7e40edbab7146898f
-      size: 1136706
+      md5: 34c06ce0d1f6b8c78166f4017a5cc169
+      size: 1137472
     - path: src/models/make_predictions.py
-      md5: d46f831204d2cbd88482709d687b521a
+      md5: ec0f6ad95c3e47577dde27cb1c8f61d3
       size: 1868
     outs:
     - path: models/predictions/predictions.csv
-      md5: e1a2b196237e654ddb33957ce9aeaa91
-      size: 87239
+      md5: 1aab064ad0383cab4ba0e98a3ab1c170
+      size: 87213
   evaluate_predictions:
     cmd: python -m src.models.evaluate_predictions data/processed/test_dataset.csv
       models/predictions/predictions.csv models/metrics/metrics.json
     deps:
     - path: data/processed/test_dataset.csv
-      md5: 8fe3930b1669af689f1fa696ef1e8c49
-      size: 289710
+      md5: b91cf88f9c7acab82eb7bd1ff48032d5
+      size: 291752
     - path: models/predictions/predictions.csv
-      md5: e1a2b196237e654ddb33957ce9aeaa91
-      size: 87239
+      md5: 1aab064ad0383cab4ba0e98a3ab1c170
+      size: 87213
     - path: src/models/evaluate_predictions.py
-      md5: 4229467ed4cfdd83c9dab646d71486d7
-      size: 1491
+      md5: 7d5d8454904d26764d03fe713c78c89c
+      size: 1493
     outs:
     - path: models/metrics/metrics.json
-      md5: bbce548934b6cefb35aecef1e3a65178
+      md5: 046c280367d32a5681c8b21236141b15
       size: 96
   get_unique_column_values:
     cmd: python -m src.data.get_unique_column_values data/interim/cleaned_dataset.csv
       models/other/unique_column_values.pkl
     deps:
     - path: data/interim/cleaned_dataset.csv
-      md5: 307b04cbbf3bf16158d2806636ccf17c
-      size: 1452345
+      md5: 65a2b87d156b58fc071b741b0e5681a2
+      size: 1462453
     - path: src/data/get_unique_column_values.py
-      md5: ee044456479f246ad177737ce7d02ae3
+      md5: 71baff06db43e03dd777f95d6d26846d
       size: 851
     outs:
     - path: models/other/unique_column_values.pkl
-      md5: f70ee0b62931b9e172c520688ea0f0a5
-      size: 978
+      md5: 025c104c892c63dd21e2ee0023b6e223
+      size: 992

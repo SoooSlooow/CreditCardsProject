@@ -23,7 +23,11 @@ def predict(*args: tuple) -> Any:
         shell=True,
     )
     predictions = np.genfromtxt(PREDICTIONS_PATH, delimiter=",", skip_header=1)
-    return predictions[0]
+    if predictions[2] == 1:
+        message = "Client is considered bad. Issuance of credit is not recommended."
+    else:
+        message = "Client is considered good. Issuance of credit is allowed."
+    return round(predictions[0], 3), message
 
 
 OUTPUT_DATA_PATH = "data/processed/app_dataset.csv"
@@ -51,15 +55,8 @@ columns = (
 unique_values = joblib.load(UNIQUE_VALUES_PATH)
 
 with gr.Blocks() as demo:
-    gr.Markdown(
-        """
-    Здарова
-    """
-    )
-    # defining the layout
     with gr.Row():
         with gr.Column():
-            # defining the inputs
             age = gr.Slider(label="Age", minimum=18, maximum=90, step=1, randomize=True)
             sex = gr.Dropdown(
                 label="Sex",
@@ -148,7 +145,8 @@ with gr.Blocks() as demo:
             )
 
         with gr.Column():
-            label = gr.Label()
+            label_1 = gr.Label(label="Client rating")
+            label_2 = gr.Textbox(label="Client verdict (client is considered bad if client rating < 0.99)")
             with gr.Row():
                 predict_btn = gr.Button(value="Predict")
             predict_btn.click(
@@ -171,8 +169,7 @@ with gr.Blocks() as demo:
                     flag_work_phone,
                     flag_email,
                 ],
-                outputs=[label],
+                outputs=[label_1, label_2],
             )
 
-# launch
 demo.launch()

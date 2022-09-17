@@ -36,9 +36,8 @@ def optimize_logreg(
             "column_transformer", column_transformers.keys()
         )
         logreg_C = trial.suggest_float("logreg_C", 1e-5, 1e4, log=True)
-        logreg_penalty = trial.suggest_categorical("logreg_penalty", ["l2"])
         classifier_obj = LogisticRegression(
-            C=logreg_C, penalty=logreg_penalty, solver="lbfgs", random_state=0
+            C=logreg_C, penalty='l2', solver="lbfgs", random_state=0
         )
         model_obj = create_pipeline(
             column_transformers[column_transformer], classifier_obj

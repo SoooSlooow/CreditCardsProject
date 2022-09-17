@@ -68,7 +68,7 @@ def create_column_transformers(X: pd.DataFrame) -> dict[str, ColumnTransformer]:
 
     categorical_transformation_1 = Pipeline(
         [
-            ("ohe", OneHotEncoder(sparse=False, drop="if_binary")),
+            ("ohe", OneHotEncoder(sparse=False, drop="if_binary", handle_unknown="ignore")),
             ("scaler", StandardScaler()),
         ]
     )
@@ -82,7 +82,7 @@ def create_column_transformers(X: pd.DataFrame) -> dict[str, ColumnTransformer]:
 
     categorical_transformation_2 = Pipeline(
         [
-            ("ohe", OneHotEncoder(sparse=False, drop="if_binary")),
+            ("ohe", OneHotEncoder(sparse=False, drop="if_binary", handle_unknown="ignore")),
             ("scaler", StandardScaler()),
         ]
     )
@@ -98,7 +98,7 @@ def create_column_transformers(X: pd.DataFrame) -> dict[str, ColumnTransformer]:
 
     categorical_transformation_3 = Pipeline(
         [
-            ("ohe", OneHotEncoder(sparse=False, drop="if_binary")),
+            ("ohe", OneHotEncoder(sparse=False, drop="if_binary", handle_unknown="ignore")),
             ("scaler", StandardScaler()),
         ]
     )
@@ -114,7 +114,7 @@ def create_column_transformers(X: pd.DataFrame) -> dict[str, ColumnTransformer]:
 
     categorical_transformation_4 = Pipeline(
         [
-            ("ohe", OneHotEncoder(sparse=False, drop="if_binary")),
+            ("ohe", OneHotEncoder(sparse=False, drop="if_binary", handle_unknown="ignore")),
             ("scaler", StandardScaler()),
         ]
     )
@@ -134,7 +134,7 @@ def create_column_transformers(X: pd.DataFrame) -> dict[str, ColumnTransformer]:
 
     categorical_transformation_5 = Pipeline(
         [
-            ("ohe", OneHotEncoder(sparse=False, drop="if_binary")),
+            ("ohe", OneHotEncoder(sparse=False, drop="if_binary", handle_unknown="ignore")),
             ("scaler", StandardScaler()),
         ]
     )
