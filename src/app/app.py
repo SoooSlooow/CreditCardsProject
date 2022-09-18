@@ -7,6 +7,10 @@ import joblib
 import numpy as np
 import pandas as pd
 
+OUTPUT_DATA_PATH = "data/processed/app_dataset.csv"
+PREDICTIONS_PATH = "models/predictions/app_predictions.csv"
+UNIQUE_VALUES_PATH = "models/other/unique_column_values.pkl"
+
 
 def predict(*args: tuple) -> Any:
     app_df = pd.DataFrame(data=[args], columns=columns, index=[0])
@@ -29,10 +33,6 @@ def predict(*args: tuple) -> Any:
         message = "Client is considered good. Issuance of credit is allowed."
     return round(predictions[0], 3), message
 
-
-OUTPUT_DATA_PATH = "data/processed/app_dataset.csv"
-PREDICTIONS_PATH = "models/predictions/app_predictions.csv"
-UNIQUE_VALUES_PATH = "models/other/unique_column_values.pkl"
 
 columns = (
     "YEARS_BIRTH",
@@ -66,7 +66,7 @@ with gr.Blocks() as demo:
             annual_income = gr.Slider(
                 label="Annual income",
                 minimum=0,
-                maximum=7000000,
+                maximum=1000000,
                 step=10000,
                 randomize=True,
             )

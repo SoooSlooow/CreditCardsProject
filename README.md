@@ -1,57 +1,47 @@
-CreditCardsProject
-==============================
+# Предсказание ненадежных кредитных заемщиков
 
-A short description of the project.
+На основе [данных](https://www.kaggle.com/datasets/rikdifos/credit-card-approval-prediction) о клиентах банка
+и истории их кредитных транзакций разработана модель, предсказывающая, является ли клиент "плохим" заемщиком.
+Этапы построения модели включают в себя:
+- Получение датасета о клиентах и его очистку;
+- Исследовательский анализ данных;
+- Изучение различных методов построения новых признаков;
+- Выбор модели, настройка ее гиперпараметров при помощи Optuna и обучение;
+- Оценка работы обученной модели на тестовых данных.
 
-Project Organization
-------------
+### **_Демонстрация работы модели представлена [здесь](https://huggingface.co/spaces/SoooSlooow/CreditCardsApp)._**
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+## Структура репозитория
 
+* _data_
+    + _raw_: исходные данные c Kaggle;
+    + _interim_: промежуточные данные, получающиеся в процессе предварительной обработки;
+    + _processed_: полностью обработанные данные, используемые для дальнейшего обучения модели или получения
+  предсказаний;
+* _models_: включает в себя обученные модели результаты предсказаний, логи оптимизации Optuna и др; 
+* _notebooks_: Jupyter блокноты с EDA, описанием получения и очистки датасета и др;
+* _src_:
+    + _app_: скрипты для запуска демонстрационного приложения на локальном серевере;
+    + _data_: скрипты, производящие обработку данных;
+    + _models_: скрипты, в которых совершаются обучение модели, поиск оптимальных гиперпараметров,
+получение предсказаний и др.
 
---------
+## Запуск
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+Установка зависимостей и загрузка отслеживаемых DVC данных с Google Drive:
+
+`pip install -r requirements.txt`  
+`dvc pull`
+
+Воспроизведение DVC-пайплайна:
+
+`dvc repro`
+
+Запуск демонстрационного приложения на локальном сервере:
+
+`python -m src.app.app`
+
+Поиск оптимальных гиперпараметров при помощи Optuna (занимает длительное время):
+
+` python -m src.models.make_optuna_studies data/processed/train_dataset.csv models/optuna_studies`
+    
