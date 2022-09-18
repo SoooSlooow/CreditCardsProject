@@ -41,7 +41,7 @@
 
 `python -m src.app.app`
 
-Поиск оптимальных гиперпараметров при помощи Optuna (занимает длительное время):
+Воспроизведение поиска оптимальных гиперпараметров при помощи Optuna (занимает длительное время):
 
 ` python -m src.models.make_optuna_studies data/processed/train_dataset.csv models/optuna_studies`
     
